@@ -161,7 +161,7 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 
 ### 2026-08-26 (구현)
 
-- Phase 1~4 완료. Phase 5(새 사용자 계정 검증)와 첫 push는 사용자 확인 대기.
+- Phase 1~4 완료 후 `movie42/dotfiles`에 첫 push. Phase 5(새 사용자 계정 검증)만 남음.
 - 검증: 새 셸과 현재 셸의 `alias` 출력 비교 — gh 전환 alias 2개만 추가되고 나머지 동일. 함수 16개 `functions` 출력 대조 — `pfx-list`의 후행 공백만 다르고 전부 일치. 셸 시작 시간 중앙값 0.95초 → 0.79초.
 - 검증: install.sh의 `link()`를 가짜 HOME으로 4가지 상황(실제 파일 존재 / 재실행 / 다른 곳 가리키는 심링크 / 원본 없음) 테스트 — 백업·멱등성·실패 수집 모두 의도대로.
 - 검증: 첫 커밋 전 `git diff --cached`에 gh·sk·AIza·AKIA·JWT·PEM 패턴 없음, 회사 이메일 없음. `git log`가 `movie42 <44064122+movie42@...>`, `ssh -T github-personal`이 `Hi movie42!`.
@@ -177,3 +177,10 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - 결정: gh 계정 전환 alias(`ghwork`/`ghme`)는 저장소가 아니라 `~/.zshrc.local`에 둔다. 계정 이름이 맥마다 다른 값이라 머신별 설정에 해당한다.
 - 결정: `JAVA_HOME`은 17로 확정. Expo SDK 53의 `expo-modules-core`가 `JavaVersion.VERSION_17`을 선언하고, `~/.gradle/jdks`에 Gradle이 자동으로 받아둔 Adoptium 17이 남아 있다. 지금까지 Gradle 데몬은 21로 돌고 컴파일만 17로 하고 있었다.
 - Amazon Q 잔재 전부 삭제: `~/.local/bin`의 `qchat`/`qterm` 심링크와 `* (qterm)` 바이너리 4개(335MB), `~/Library/Application Support/amazon-q`(10MB).
+- 결정: 수동 설치 GUI 앱을 cask 14개로 Brewfile에 추가했다. `brew bundle dump`는 Homebrew로 깐 것만 알아서 cask가 11개뿐이었는데, 실제로는 Chrome·Slack·Android Studio 등 대부분을 드래그로 설치한 상태였다.
+- 결정: 에디터는 Cursor/Zed를 빼고 VS Code로 간다. Cursor의 테마 설정(`Default Light+`, 커스텀 토큰 색, JetBrains Mono)을 `vscode/`로 옮기고 확장 26개를 Brewfile `vscode` 항목으로 넣었다. Amazon Q 잔재(`Q_NEW_SESSION` 등)와 Cursor 전용 키바인딩은 제외했다.
+- 결정: node를 nvm에만 맡긴다. Brewfile에서 `brew "node"`와 `npm` 항목 10개를 빼고, install.sh가 `nvm install --lts` 뒤에 전역 패키지를 깐다. bun은 Homebrew에 없어 공식 설치 스크립트를 호출한다.
+- 확인 불가: Orca는 테마 설정이 없다 — `Preferences`에 `partition`/`spellcheck` 두 키뿐이고, 나머지 상태는 `ai-vault`·세션 키·쿠키와 같은 디렉토리에 있어 저장소에 넣을 수 없다. cask 설치만 한다.
+- 확인 불가: VS Code는 이 맥에 없어 옮길 테마가 없었다. Cursor 설정을 대신 옮겼다.
+- 미포함: Xcode(App Store 전용), KakaoTalk(cask 없음), Jetendard 폰트(71MB, `~/Library/Fonts`), macOS 시스템 설정. README에 표로 적었다.
+- `~/.config/karabiner`는 저장소에 남겼다. cask는 뺐지만 커스텀 키 매핑 자체는 사용자가 만든 데이터라 지우지 않았다.
