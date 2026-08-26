@@ -103,7 +103,7 @@ cask "orbstack"
 cask "reactotron"
 
 # --- GUI 앱 ---
-cask "arc"
+cask "aside"
 cask "google-chrome"
 cask "visual-studio-code"
 cask "orca"
