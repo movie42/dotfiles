@@ -11,6 +11,29 @@ Homebrew → 저장소 clone → `brew bundle` → oh-my-zsh → 심링크 → n
 
 여러 번 실행해도 결과가 같다. 각 단계가 존재 여부를 먼저 검사하고, 실패한 항목은 중단하지 않고 맨 마지막에 모아 출력한다.
 
+## 제대로 깔렸는지 확인
+
+`install.sh`가 끝났다고 정상은 아니다. 터미널을 새로 연 뒤 검증 스크립트를 돌린다.
+
+```bash
+~/dotfiles/verify.sh
+```
+
+전부 통과하면 종료 코드 0, 하나라도 실패하면 1이다. 확인하는 것:
+
+| 항목 | 판정 기준 |
+| --- | --- |
+| 심링크 | 대응표의 모든 경로가 저장소 파일을 가리키는 살아 있는 심링크인가 |
+| CLI | `brew` `git` `delta` `fzf` `zoxide` `eza` `bat` `rg` `yazi` `glow` `pnpm` `pipx` `scrcpy` `watchman` `pulumi` `duti` `tree` `jq` `node` `bun` 이 PATH에 있는가 |
+| GUI 앱 | Brewfile의 cask가 `/Applications`에 실제로 있는가 |
+| 셸 | 함수 16개와 alias 14개가 정의되는가, 새 셸이 에러 없이 뜨는가 |
+| 버전 | `JAVA_HOME`이 openjdk@17인가, `java`가 17인가, `node`가 nvm 것인가 |
+| git | pager가 delta인가, `user.name`/`user.email`이 채워졌는가 |
+| `.local` 파일 | 두 파일이 있고 권한이 600인가 |
+| 실행 확인 | `git status` `delta` `fzf` `git-status-preview`가 실제로 도는가 |
+
+`~/.gitconfig.local`을 안 채웠으면 git 신원 항목이 실패한다. 이건 스크립트 문제가 아니라 실제로 커밋이 안 되는 상태다.
+
 ## 구조
 
 저장소 파일을 실제 위치로 심링크한다. `~/.zshrc`를 고치면 그게 곧 저장소 파일 수정이라 `git commit` 한 번으로 백업이 끝난다.

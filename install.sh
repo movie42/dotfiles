@@ -150,6 +150,9 @@ cat <<'EOF'
   6. macOS 시스템 설정 (키보드, 트랙패드, Dock)
 
   터미널을 새로 열면 새 설정이 적용됩니다.
+
+  그 다음 검증:  ~/dotfiles/verify.sh
+  전부 통과하면 0, 하나라도 실패하면 1로 끝납니다.
 EOF
 
 if [ ${#FAILURES[@]} -gt 0 ]; then
