@@ -1,0 +1,162 @@
+{
+  "window.commandCenter": true,
+  "json.schemaDownload.enable": true,
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true,
+  },
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.rulers": [120],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  "editor.codeActionsOnSave": {
+    "source.removeUnusedImports": "explicit",
+    "source.organizeImports": "never",
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.fontLigatures": true,
+  "editor.fontSize": 11,
+  "editor.guides.bracketPairs": true,
+  "editor.fontFamily": "JetBrains Mono",
+  "workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-light",
+  "workbench.sideBar.location": "right",
+  "workbench.colorTheme": "Default Light+",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "variable",
+        "settings": {
+          "foreground": "#ff9100", // 변수: 빨강
+        },
+      },
+      {
+        "scope": "entity.name.function",
+        "settings": {
+          "foreground": "#ff0080", // 함수: 핫핑크
+        },
+      },
+      {
+        "scope": "entity.name.type",
+        "settings": {
+          "foreground": "#760a76", // 타입: 보라
+        },
+      },
+      {
+        "scope": "keyword",
+        "settings": {
+          "foreground": "#0000ff", // 예약어: 파랑
+        },
+      },
+      {
+        "scope": "string",
+        "settings": {
+          "foreground": "#788084", // 문자열: 초록
+        },
+      },
+      {
+        "scope": ["variable.object.property", "meta.object-literal.key"],
+        "settings": {
+          "foreground": "#ffae00", // 객체 키: 주황
+        },
+      },
+    ],
+  },
+  "editor.semanticTokenColorCustomizations": {
+    "rules": {
+      "test": { "foreground": "#ff00ff" },
+      "control": { "foreground": "#800080" },
+    },
+  },
+  "explorer.compactFolders": false,
+  "markdown.updateLinksOnFileMove.enabled": "prompt",
+  "playwright.reuseBrowser": true,
+  "playwright.runGlobalSetupOnEachRun": false,
+  "playwright.showTrace": false,
+  "security.promptForLocalFileProtocolHandling": false,
+  "terminal.external.osxExec": "Warp.app",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "underline",
+  "terminal.integrated.fontFamily": "monospace",
+  "todohighlight.isEnable": true,
+  "window.systemColorTheme": "light",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#ffffff",
+    "activityBar.foreground": "#006aff",
+    "activityBar.inactiveForeground": "#006aff63",
+    "activityBarBadge.background": "#006aff",
+    "activityBarBadge.foreground": "#ffffff",
+    "button.background": "#006aff",
+    "commandCenter.background": "#fff",
+    "commandCenter.foreground": "#006aff",
+    "editor.background": "#ffffff",
+    "editor.findMatchBackground": "#0059ff44",
+    "editor.findMatchForeground": "#ffffff",
+    "editor.findMatchHighlightBackground": "#0059ff44",
+    "editor.findRangeHighlightBackground": "#0059ff44",
+    "editor.inlineValuesForeground": "#fff",
+    "editor.lineHighlightBackground": "#7caaff18",
+    "editor.rangeHighlightBackground": "#6da0ff5d",
+    "editor.selectionBackground": "#6da0ff5d",
+    "editor.selectionForeground": "#fff",
+    "editor.selectionHighlightBackground": "#0059ff44",
+    "editor.snippetFinalTabstopHighlightBackground": "#0059ff44",
+    "editor.wordHighlightBackground": "#0059ff44",
+    "editor.wordHighlightTextBackground": "#0059ff44",
+    "editorError.background": "#ff00003a",
+    "editorError.foreground": "#fff",
+    "editorInfo.foreground": "#008a35",
+    "editorWarning.background": "#ffc4007d",
+    "gitDecoration.addedResourceForeground": "#006aff",
+    "gitDecoration.ignoredResourceForeground": "#a8a8a8ab",
+    "gitDecoration.modifiedResourceForeground": "#ff9d00",
+    "list.activeSelectionBackground": "#006aff",
+    "list.activeSelectionForeground": "#fff",
+    "list.focusHighlightForeground": "#ff9d00",
+    "list.hoverBackground": "#006aff58",
+    "list.inactiveSelectionBackground": "#0059ff44",
+    "list.inactiveSelectionForeground": "#ffffff",
+    "sideBar.background": "#ffffff",
+    "sideBarSectionHeader.background": "#ffffff",
+    "tab.activeBackground": "#006aff",
+    "tab.activeForeground": "#ffffff",
+    "tab.hoverBackground": "#4f70f6",
+    "tab.inactiveBackground": "#ebebeb",
+    "tab.inactiveForeground": "#a8a8a8",
+    "terminal.background": "#ffffff",
+    "terminalCursor.foreground": "#006aff",
+    "titleBar.activeBackground": "#006aff",
+    "titleBar.activeForeground": "#ffffff",
+  },
+  "workbench.editor.editorActionsLocation": "titleBar",
+  "workbench.externalBrowser": "chrome",
+  "workbench.editorAssociations": {
+    "*.svg": "default",
+  },
+  "git.confirmSync": false,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "claudeCode.selectedModel": "default",
+  "claudeCode.preferredLocation": "panel",
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "window.autoDetectColorScheme": false,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+}

@@ -6,7 +6,7 @@ macOS 개발 환경 설정. 새 맥에서 명령 한 줄로 복원한다.
 curl -fsSL https://raw.githubusercontent.com/movie42/dotfiles/main/install.sh | bash
 ```
 
-Homebrew → 저장소 clone → `brew bundle` → oh-my-zsh → 심링크 → node(LTS) 순으로 진행한다.
+Homebrew → 저장소 clone → `brew bundle` → oh-my-zsh → 심링크 → node(LTS) → npm 전역 패키지 → bun 순으로 진행한다.
 깨끗한 맥에는 git이 없기 때문에 Homebrew가 맨 앞이다 — Homebrew 설치 과정이 Xcode Command Line Tools를 깔고 거기에 git이 딸려 온다.
 
 여러 번 실행해도 결과가 같다. 각 단계가 존재 여부를 먼저 검사하고, 실패한 항목은 중단하지 않고 맨 마지막에 모아 출력한다.
@@ -28,6 +28,8 @@ Homebrew → 저장소 clone → `brew bundle` → oh-my-zsh → 심링크 → n
 | `claude/skills/` | `~/.claude/skills` |
 | `config/<도구>/` | `~/.config/<도구>` |
 | `bin/git-status-preview` | `~/.local/bin/git-status-preview` |
+| `vscode/settings.json` | `~/Library/Application Support/Code/User/settings.json` |
+| `vscode/keybindings.json` | `~/Library/Application Support/Code/User/keybindings.json` |
 
 `config/` 아래는 디렉토리 하나하나를 개별 링크로 건다. `~/.config` 자체를 통째로 링크하면 저장소에 없는 도구들(`gcloud`, `vercel-plugin` 등 자격증명이 든 것 포함)이 갈 곳을 잃는다.
 
@@ -67,6 +69,21 @@ Homebrew → 저장소 clone → `brew bundle` → oh-my-zsh → 심링크 → n
 6. macOS 시스템 설정 (키보드, 트랙패드, Dock)
 
 `~/.claude/skills/browse`는 소스만 들어 있다. 쓰려면 `~/.claude/skills/browse/setup.sh`를 한 번 실행해 의존성을 받아야 한다.
+
+## install.sh가 복원하지 못하는 것
+
+`brew bundle`은 Homebrew가 아는 것만 깐다. 아래는 목록에 담기지 않아 직접 받아야 한다.
+
+| 항목 | 이유 |
+| --- | --- |
+| Xcode | App Store 전용. `mas` CLI는 로그인 상태에 의존하고 자주 깨져 쓰지 않는다 |
+| KakaoTalk | Homebrew cask가 없다 |
+| 사내 배포 앱 | 사내 채널로만 받는다 |
+| Jetendard 폰트 | `~/.config/ghostty/config`가 이 폰트를 쓴다. 없으면 기본 폰트로 뜬다 |
+| macOS 시스템 설정 | 키보드·트랙패드·Dock·Finder. `defaults write` 키가 macOS 버전마다 바뀌어 자동화하지 않는다 |
+| Android SDK | Android Studio를 처음 실행하면 받는다 |
+
+node는 nvm이 관리한다. Brewfile에 `node`를 넣지 않고, `nvm install --lts` 후 npm 전역 패키지를 깐다. bun은 Homebrew에 없어 공식 설치 스크립트를 쓴다.
 
 ## 이 저장소에 push하기
 

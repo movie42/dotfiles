@@ -87,6 +87,10 @@ for dir in "$DOTFILES"/config/*/; do
   link "config/$name" "$HOME/.config/$name"
 done
 
+VSCODE_USER="$HOME/Library/Application Support/Code/User"
+link vscode/settings.json    "$VSCODE_USER/settings.json"
+link vscode/keybindings.json "$VSCODE_USER/keybindings.json"
+
 log "Node"
 export NVM_DIR="$HOME/.nvm"
 mkdir -p "$NVM_DIR"
@@ -98,8 +102,28 @@ if [ -s "$(brew --prefix nvm)/nvm.sh" ]; then
   else
     nvm install --lts || fail "nvm install --lts 실패"
   fi
+  nvm use --lts >/dev/null 2>&1
 else
   fail "nvm을 찾을 수 없습니다 — brew bundle이 실패했는지 확인하세요"
+fi
+
+if command -v npm >/dev/null 2>&1; then
+  for pkg in yarn corepack @openai/codex eas-cli @coastal-programs/notion-cli @playwright/cli; do
+    if npm ls -g --depth=0 "$pkg" >/dev/null 2>&1; then
+      skip "$pkg"
+    else
+      npm install -g "$pkg" >/dev/null 2>&1 && ok "$pkg" || fail "npm 전역 설치 실패: $pkg"
+    fi
+  done
+else
+  fail "npm이 없어 전역 패키지를 건너뜁니다"
+fi
+
+log "bun"
+if command -v bun >/dev/null 2>&1 || [ -x "$HOME/.bun/bin/bun" ]; then
+  skip "이미 설치됨"
+else
+  curl -fsSL https://bun.sh/install | bash || fail "bun 설치 실패"
 fi
 
 log "머신별 설정 파일"
