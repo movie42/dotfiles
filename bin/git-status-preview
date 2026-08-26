@@ -1,0 +1,50 @@
+#!/bin/sh
+# fzf preview for git_status(): show staged/unstaged diff for one `git status -s` line.
+# usage: git-status-preview "<raw colored status line>" [width]
+
+line=$(printf '%s' "$1" | sed -E 's/'"$(printf '\033')"'\[[0-9;]*m//g')
+width="${2:-80}"
+
+xy=$(printf '%s' "$line" | cut -c1-2)
+path=$(printf '%s' "$line" | cut -c4-)
+
+case "$path" in
+  *' -> '*) path=${path##* -> } ;;
+esac
+path=$(printf '%s' "$path" | sed 's/^"//; s/"$//')
+
+render() {
+  if command -v delta >/dev/null 2>&1; then
+    delta --paging=never --width="$width"
+  else
+    cat
+  fi
+}
+
+if [ "$xy" = '??' ]; then
+  printf '\033[1;38;5;136m── untracked ──\033[0m\n'
+  if [ -d "$path" ]; then
+    ls -la -- "$path"
+  else
+    head -300 -- "$path" 2>/dev/null || echo '(읽을 수 없음)'
+  fi
+  exit 0
+fi
+
+staged=$(git diff --cached --color=always -- "$path")
+unstaged=$(git diff --color=always -- "$path")
+
+if [ -n "$staged" ]; then
+  printf '\033[1;38;5;28m━━━━━━ STAGED ━━━━━━\033[0m\n'
+  printf '%s\n' "$staged" | render
+fi
+
+if [ -n "$unstaged" ]; then
+  [ -n "$staged" ] && printf '\n'
+  printf '\033[1;38;5;88m━━━━━━ UNSTAGED ━━━━━━\033[0m\n'
+  printf '%s\n' "$unstaged" | render
+fi
+
+if [ -z "$staged" ] && [ -z "$unstaged" ]; then
+  echo '(변경 내용 없음)'
+fi

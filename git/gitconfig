@@ -1,0 +1,29 @@
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = /usr/bin/vim
+	pager = delta
+[init]
+	defaultBranch = main
+[alias]
+	s = status -sb
+	ss = !git status -sb && echo && git diff --stat
+	l = log --oneline --graph --decorate -20
+[color]
+	ui = true
+[column]
+	ui = auto
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = false
+	hyperlinks = true
+	light = true
+	syntax-theme = GitHub
+[merge]
+	conflictstyle = zdiff3
+[diff]
+	colorMoved = default
+[include]
+	path = ~/.gitconfig.local

@@ -1,0 +1,20 @@
+# 시크릿과 머신별 값
+.zshrc.local
+gitconfig.local
+git/gitconfig.local
+
+# 자격증명·토큰 캐시가 들어 있는 도구 설정
+config/gh/
+config/gcloud/
+config/vercel-plugin/
+config/configstore/
+config/devin/
+config/github-copilot/
+config/notion-cli/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc

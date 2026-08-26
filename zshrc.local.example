@@ -1,0 +1,12 @@
+# ~/.zshrc.local — 머신별 값과 시크릿 전용. dotfiles 저장소에 커밋하지 않는다.
+#
+# 사용법:
+#   cp ~/dotfiles/zshrc.local.example ~/.zshrc.local
+#   chmod 600 ~/.zshrc.local
+#   아래 값을 채운다.
+
+# AWS — `aws configure --profile <이름>`으로 만든 프로필 이름
+export AWS_PROFILE=
+
+# Pulumi — 스택 시크릿을 여는 패스프레이즈
+export PULUMI_CONFIG_PASSPHRASE=

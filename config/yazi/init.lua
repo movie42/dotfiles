@@ -1,0 +1,1 @@
+-- 빈 init.lua (플러그인은 yazi.toml에서 설정)

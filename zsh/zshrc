@@ -1,0 +1,18 @@
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+
+source "$DOTFILES/zsh/path.zsh"
+source "$DOTFILES/zsh/aliases.zsh"
+
+for _f in "$DOTFILES"/zsh/functions/*.zsh(N); do
+  source "$_f"
+done
+unset _f
+
+source "$DOTFILES/zsh/tools.zsh"
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

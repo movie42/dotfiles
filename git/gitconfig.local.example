@@ -1,0 +1,17 @@
+# ~/.gitconfig.local — 커밋 신원과 사내 전용 설정. dotfiles 저장소에 커밋하지 않는다.
+#
+# 사용법:
+#   cp ~/dotfiles/git/gitconfig.local.example ~/.gitconfig.local
+#   아래 값을 채운다. user.name / user.email이 비면 git이 커밋 시점에 에러를 낸다.
+
+[user]
+	name =
+	email =
+
+# 회사/개인 SSH 키를 계정별로 나눠 쓸 때만. 한 개만 쓴다면 통째로 지운다.
+# [core]
+#	sshCommand = ssh -o UseKeychain=yes -o AddKeysToAgent=yes -i ~/.ssh/<키파일>
+
+# 사내 git 서버 인증서. 없는 파일을 가리키면 HTTPS 통신이 전부 실패한다.
+# [http]
+#	sslCAInfo = /Users/<사용자명>/<인증서>.crt

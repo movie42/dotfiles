@@ -1,0 +1,178 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "custom-text",
+        "customText": "🧠 ",
+        "merge": "no-padding",
+        "color": "ansi256:173"
+      },
+      {
+        "id": "2",
+        "type": "model",
+        "rawValue": true,
+        "color": "ansi256:173"
+      },
+      {
+        "id": "3",
+        "type": "separator",
+        "character": " · ",
+        "color": "ansi256:240"
+      },
+      {
+        "id": "4",
+        "type": "custom-text",
+        "customText": "📊 ",
+        "merge": "no-padding",
+        "color": "ansi256:73"
+      },
+      {
+        "id": "5",
+        "type": "context-bar",
+        "rawValue": true,
+        "color": "ansi256:73"
+      },
+      {
+        "id": "6",
+        "type": "separator",
+        "character": " · ",
+        "color": "ansi256:240"
+      },
+      {
+        "id": "7",
+        "type": "custom-text",
+        "customText": "⬇ ",
+        "merge": "no-padding",
+        "color": "ansi256:108"
+      },
+      {
+        "id": "8",
+        "type": "tokens-input",
+        "rawValue": true,
+        "color": "ansi256:108"
+      },
+      {
+        "id": "9",
+        "type": "separator",
+        "character": "  "
+      },
+      {
+        "id": "10",
+        "type": "custom-text",
+        "customText": "⬆ ",
+        "merge": "no-padding",
+        "color": "ansi256:139"
+      },
+      {
+        "id": "11",
+        "type": "tokens-output",
+        "rawValue": true,
+        "color": "ansi256:139"
+      }
+    ],
+    [
+      {
+        "id": "20",
+        "type": "custom-command",
+        "commandPath": "p=$(jq -r '.workspace.current_dir // .cwd // empty' 2>/dev/null); [ -n \"$p\" ] || p=$PWD; r=$(git -C \"$p\" rev-parse --show-toplevel 2>/dev/null); echo \"📁 $(basename \"${r:-$p}\")\"",
+        "timeout": 2000,
+        "color": "ansi256:110"
+      },
+      {
+        "id": "21",
+        "type": "separator",
+        "character": " · ",
+        "color": "ansi256:240"
+      },
+      {
+        "id": "24",
+        "type": "git-worktree",
+        "character": "🌳",
+        "color": "ansi256:180",
+        "metadata": {
+          "hideNoGit": "true"
+        }
+      },
+      {
+        "id": "23",
+        "type": "separator",
+        "character": " · ",
+        "color": "ansi256:240"
+      },
+      {
+        "id": "22",
+        "type": "git-branch",
+        "character": "🌿",
+        "color": "ansi256:114",
+        "metadata": {
+          "hideNoGit": "true"
+        }
+      },
+      {
+        "id": "25",
+        "type": "separator",
+        "character": " · ",
+        "color": "ansi256:240"
+      },
+      {
+        "id": "26",
+        "type": "git-insertions",
+        "color": "ansi256:107",
+        "metadata": {
+          "hideNoGit": "true"
+        }
+      },
+      {
+        "id": "27",
+        "type": "separator",
+        "character": " "
+      },
+      {
+        "id": "28",
+        "type": "git-deletions",
+        "color": "ansi256:167",
+        "metadata": {
+          "hideNoGit": "true"
+        }
+      },
+      {
+        "id": "29",
+        "type": "separator",
+        "character": " · ",
+        "color": "ansi256:240"
+      },
+      {
+        "id": "30",
+        "type": "git-ci-status",
+        "color": "ansi256:109",
+        "metadata": {
+          "hideNoGit": "true"
+        }
+      }
+    ]
+  ],
+  "flexMode": "full-until-compact",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "defaultPadding": "",
+  "defaultPaddingSide": "both",
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "gitCacheTtlSeconds": 5,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  }
+}
