@@ -1,7 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = /usr/bin/vim
-	pager = delta
 [init]
 	defaultBranch = main
 [alias]
@@ -12,15 +11,6 @@
 	ui = true
 [column]
 	ui = auto
-[interactive]
-	diffFilter = delta --color-only
-[delta]
-	navigate = true
-	line-numbers = true
-	side-by-side = false
-	hyperlinks = true
-	light = true
-	syntax-theme = GitHub
 [merge]
 	conflictstyle = zdiff3
 [diff]

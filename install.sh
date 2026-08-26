@@ -108,7 +108,7 @@ else
 fi
 
 if command -v npm >/dev/null 2>&1; then
-  for pkg in yarn corepack @openai/codex eas-cli @coastal-programs/notion-cli @playwright/cli; do
+  for pkg in yarn corepack eas-cli @coastal-programs/notion-cli @playwright/cli; do
     if npm ls -g --depth=0 "$pkg" >/dev/null 2>&1; then
       skip "$pkg"
     else
@@ -146,7 +146,7 @@ cat <<'EOF'
   2. ~/.gitconfig.local  커밋 이름과 이메일을 채운다 (비면 git이 커밋을 거부한다)
   3. gh auth login / aws configure
   4. SSH 키 생성 후 GitHub에 등록
-  5. Xcode, Android Studio 설치 및 SDK 내려받기
+  5. Xcode 설치 (App Store), Android Studio 첫 실행 시 SDK 내려받기
   6. macOS 시스템 설정 (키보드, 트랙패드, Dock)
 
   터미널을 새로 열면 새 설정이 적용됩니다.
