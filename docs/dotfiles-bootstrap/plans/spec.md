@@ -38,11 +38,10 @@ curl -fsSL https://raw.githubusercontent.com/movie42/dotfiles/main/install.sh | 
 | `claude/skills/` | `~/.claude/skills` |
 | `config/<도구>/` | `~/.config/<도구>` |
 | `bin/git-status-preview` | `~/.local/bin/git-status-preview` |
-| `bin/git-diff-tree` | `~/.local/bin/git-diff-tree` |
 
 `config/` 아래는 디렉토리 하나하나를 개별 링크로 건다. `~/.config` 자체를 통째로 링크하면 저장소에 없는 도구들(`gcloud`, `vercel-plugin` 등 자격증명이 든 것 포함)이 갈 곳을 잃는다.
 
-`git-diff-tree`는 원래 `~/Library/pnpm/`에 있었지만 `~/.local/bin`으로 옮긴다. pnpm이 관리하는 패키지가 아니라 그냥 거기 놓여 있던 단독 스크립트라, pnpm을 재설치하면 사라진다.
+`gdt`(`git-diff-tree`)는 옮기지 않는다. `~/projects/diff-tree`를 `pnpm link --global`로 연결한 껍데기였고 그 프로젝트가 이미 없어서, 이 맥에서도 실행하면 에러가 난다. alias도 지웠다.
 
 ## 파일 분류 기준
 
@@ -72,23 +71,3 @@ curl -fsSL https://raw.githubusercontent.com/movie42/dotfiles/main/install.sh | 
 - **새 맥에 `~/.gitconfig.local`이 없는 상태**: `[include]`가 없는 파일을 가리켜도 git은 조용히 넘어간다. 다만 `user.email`이 비어 커밋 시점에 git이 에러를 낸다. README에 이 파일을 먼저 채우라고 명시한다.
 - **회사 맥 / 개인 맥**: 지금은 구분하지 않는다. 실제로 두 대를 다르게 써야 할 상황이 오면 그때 `~/.zshrc.local`로 분기하거나 chezmoi로 옮긴다.
 
-## 결정이 필요한 부분
-
-### `gdt` 명령(`git-diff-tree`)을 살릴지, 버릴지
-
-- **지금 상태**: `gdt` alias가 부르는 `git-diff-tree`는 지금 이 맥에서도 이미 깨져 있다. 실행하면 "Cannot find module" 에러가 난다. 계획에는 "pnpm 전역 패키지 목록에 없는 단독 셸 스크립트"라고 적혀 있었지만 실제로는 `~/projects/diff-tree`라는 로컬 프로젝트를 `pnpm link --global`로 연결한 껍데기였고, 그 프로젝트 폴더가 지금 없다.
-- **왜 막히는지**: 저장소로 옮겨도 동작하지 않는다. 저 껍데기 파일은 자기 위치 기준으로 `~/Library/pnpm/global/5/node_modules/git-diff-tree`를 찾기 때문에 `~/.local/bin`으로 옮기면 그것마저 못 찾는다.
-- **선택지**
-  - A안: `gdt` alias를 지운다 → 새 맥에서 없는 명령을 부르는 alias가 사라진다. 지금도 안 되던 기능이라 잃는 게 없다.
-  - B안: `~/projects/diff-tree` 프로젝트를 어디선가 복구해서 별도 저장소로 살린다 → `gdt`가 다시 동작하지만, dotfiles와 무관한 별개 작업이 생긴다.
-- **추천**: A안. 이미 쓰지 못하고 있던 명령이고, 프로젝트 소스를 찾는 일은 이 계획의 범위 밖이다.
-
-### `docs/` 폴더를 public 저장소에 함께 올릴지
-
-- **지금 상태**: 이 계획 문서 두 개(`tasks.md`, `spec.md`)가 저장소에 커밋돼 있다. 안에는 회사 GitHub 계정 이름(`AeiYo`), 회사 SSH 키 파일명, 사내 인증서를 쓴다는 사실, 회사 저장소용 alias 이름이 적혀 있다. 실제 이메일·키·토큰 값은 없다.
-- **왜 막히는지**: 저장소가 public이라 push하는 순간 누구나 읽을 수 있고, 크롤러에도 잡힌다. 나중에 지워도 히스토리에 남는다.
-- **선택지**
-  - A안: 그대로 올린다 → 새 맥에서 저장소만 clone하면 왜 이렇게 만들었는지까지 따라온다. 대신 회사 계정 이름과 키 파일명이 공개된다.
-  - B안: `.gitignore`에 `docs/`를 넣고 로컬에만 둔다 → 공개되는 게 설정 파일뿐이다. 대신 새 맥에서는 계획 문서를 볼 수 없고, 백업도 안 된다.
-  - C안: 저장소를 private으로 바꾸고 `docs/`를 유지한다 → 둘 다 지키지만 `curl | bash` 한 줄 설치가 깨진다. 토큰 인증이 필요해진다.
-- **추천**: A안. 노출되는 건 GitHub 계정 이름과 키 파일명뿐이고 둘 다 그 자체로는 접근 권한이 없다. `curl | bash` 한 줄이 이 계획의 핵심 목표라 C안은 목적을 무너뜨린다.

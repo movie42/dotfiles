@@ -11,6 +11,10 @@ export AWS_PROFILE=
 # Pulumi — 스택 시크릿을 여는 패스프레이즈
 export PULUMI_CONFIG_PASSPHRASE=
 
+# gh CLI 계정 전환 — 계정 이름은 맥마다 다르므로 여기에 둔다
+# alias ghwork="gh auth switch --user <회사계정>"
+# alias ghme="gh auth switch --user <개인계정>"
+
 # Java 버전 바꾸기 — 기본은 openjdk@17 (zsh/path.zsh)
 # export JAVA_HOME="$HOMEBREW_PREFIX/opt/openjdk@21"
 # path=("$JAVA_HOME/bin" $path)

@@ -35,7 +35,7 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 
 ### 신원 — 계정 전환 없이 쓰기
 
-이 맥은 회사 계정(`AeiYo`)이 기본이고, 개인 계정(`movie42`)은 이 저장소 하나에만 쓴다. 그래서 원칙은 **전환하지 않는다**로 잡는다. 작업할 때마다 `gh auth switch`를 기억해야 하는 방식은 언젠가 반드시 잊어버리고, 잊은 결과가 "회사 이메일로 공개 커밋"이라 되돌리기 비싸다.
+이 맥은 회사 계정(`<회사계정>`)이 기본이고, 개인 계정(`movie42`)은 이 저장소 하나에만 쓴다. 그래서 원칙은 **전환하지 않는다**로 잡는다. 작업할 때마다 `gh auth switch`를 기억해야 하는 방식은 언젠가 반드시 잊어버리고, 잊은 결과가 "회사 이메일로 공개 커밋"이라 되돌리기 비싸다.
 
 전환이 필요 없는 이유는 **git push가 gh CLI를 거치지 않기 때문**이다. push할 때 GitHub이 계정을 판별하는 건 gh의 활성 계정이 아니라 SSH 키다. 그래서 이 저장소에만 개인 키를 쓰게 만들면, gh가 어느 계정에 있든 상관없어진다.
 
@@ -43,20 +43,20 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 
 | | 인증되는 계정 |
 | --- | --- |
-| `git@github.com:...` (기본) | AeiYo |
+| `git@github.com:...` (기본) | <회사계정> |
 | `git@github-personal:...` | movie42 |
 
-- [x] gh CLI에 `movie42` 계정 추가 — `AeiYo`와 함께 두 계정이 등록됨
-- [x] gh 활성 계정을 `AeiYo`로 되돌린다 — `gh auth switch --user AeiYo`
-  - 지금 `movie42`가 활성이라 `mypr`(`prs`)의 `@me`가 개인 계정으로 해석돼 회사 PR이 안 보인다. 일상 작업이 회사 쪽이므로 기본값은 `AeiYo`가 맞다.
+- [x] gh CLI에 `movie42` 계정 추가 — `<회사계정>`와 함께 두 계정이 등록됨
+- [x] gh 활성 계정을 `<회사계정>`로 되돌린다 — `gh auth switch --user <회사계정>`
+  - 지금 `movie42`가 활성이라 `mypr`(`prs`)의 `@me`가 개인 계정으로 해석돼 회사 PR이 안 보인다. 일상 작업이 회사 쪽이므로 기본값은 `<회사계정>`가 맞다.
   - 저장소 생성 때만 잠깐 `movie42`가 필요하다. 아래 항목 참조.
 - [x] `movie42/dotfiles` 저장소 생성 — 이 한 번만 개인 계정이 필요하다
-  - `gh auth switch --user movie42` → `gh repo create movie42/dotfiles --public` → `gh auth switch --user AeiYo`
+  - `gh auth switch --user movie42` → `gh repo create movie42/dotfiles --public` → `gh auth switch --user <회사계정>`
   - 전환이 번거로우면 GitHub 웹에서 빈 저장소를 만들어도 결과는 같다. 이후로는 gh를 쓸 일이 없다.
 - [x] `~/dotfiles`의 원격 주소를 개인 별칭으로 지정 (`~/dotfiles/.git/config`)
   - `git remote add origin git@github-personal:movie42/dotfiles.git`
 - [x] `~/dotfiles`에만 전역 SSH 키 고정을 해제 (`~/dotfiles/.git/config`)
-  - 전역 `core.sshCommand`가 `-i ~/.ssh/AeiYo`로 키를 못박고 있어서, 그대로 두면 `github-personal` 별칭을 써도 AeiYo로 인증된다. 확인해봤고 실제로 그렇게 동작한다.
+  - 전역 `core.sshCommand`가 `-i ~/.ssh/<회사키>`로 키를 못박고 있어서, 그대로 두면 `github-personal` 별칭을 써도 <회사계정>으로 인증된다. 확인해봤고 실제로 그렇게 동작한다.
   - `git config core.sshCommand "ssh"` — 저장소 안에서만 `-i`를 걷어내면 `~/.ssh/config`의 별칭 설정이 적용된다
 - [x] `~/dotfiles`에만 개인 신원 적용 (`~/dotfiles/.git/config`)
   - 전역 설정(회사 계정)은 건드리지 않는다. `git config user.name movie42`, `git config user.email 44064122+movie42@users.noreply.github.com`
@@ -66,7 +66,7 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
   - `GIT_SSH_COMMAND="ssh" ssh -T github-personal` — `Hi movie42!`가 나와야 한다
   - 여기서 틀린 채로 push하면 히스토리 재작성 말고는 방법이 없다
 - [x] gh 계정 전환 alias 추가 (`~/dotfiles/zsh/aliases.zsh`)
-  - `alias ghwork="gh auth switch --user AeiYo"` / `alias ghme="gh auth switch --user movie42"`
+  - `alias ghwork="gh auth switch --user <회사계정>"` / `alias ghme="gh auth switch --user movie42"`
   - 위 설정이 끝나면 평소엔 쓸 일이 없다. 개인 저장소에 `gh` 명령(PR 생성 등)을 쓸 때만 필요하다.
 
 ## Phase 2: 저장소 뼈대와 zshrc 분해
@@ -113,9 +113,9 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
   - `nvim`은 제외 (개요 참조)
 - [x] oh-my-zsh 커스텀 플러그인 처리 (`~/dotfiles/install.sh`)
   - `~/.oh-my-zsh/custom/plugins`에 `zsh-autosuggestions`, `zsh-syntax-highlighting`이 있는데 brew로도 같은 게 깔려 있다. brew 쪽만 남기고 omz 플러그인 목록에서 뺀다.
-- [ ] 커스텀 실행 스크립트 이동 (`~/dotfiles/bin/`)
+- [x] 커스텀 실행 스크립트 이동 (`~/dotfiles/bin/`)
   - `~/.local/bin/git-status-preview` — `git_status` 함수의 fzf preview가 이걸 호출한다. 없으면 preview 창이 깨진다.
-  - `~/Library/pnpm/git-diff-tree` — `gdt` alias가 쓴다. pnpm 전역 패키지 목록에는 없는 단독 셸 스크립트라 직접 챙겨야 한다.
+  - `~/Library/pnpm/git-diff-tree`는 옮기지 않는다 — 이미 깨진 pnpm link 껍데기라 `gdt` alias와 함께 삭제했다.
 - [x] AI 에이전트 규칙 문서 이동 (`~/dotfiles/claude/`)
   - `~/AGENTS.md`, `~/.claude/CLAUDE.md`, `~/.claude/rules/`, `~/.claude/settings.json`, `~/.claude/skills/`
   - `~/.claude.json`은 세션 기록과 자격증명이 들어 있어 제외
@@ -155,9 +155,9 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - 오래된 백업 `~/.zshrc.bak.mypr`, `~/.zshrcBackupupup` 삭제. 현재 `.zshrc`와 대조해 고유 내용이 없음을 확인한 뒤 지웠다.
 - `.zshrcBackupupup`에만 있던 `JAVA_HOME` 설정이 현재 `.zshrc`에서는 빠져 있는 걸 발견해 Phase 2에 항목으로 추가했다.
 - 결정: 저장소는 개인 계정 `movie42/dotfiles`. 확인해보니 gh CLI는 회사 계정으로만 로그인돼 있고 전역 git 신원도 회사 계정이라, 신원 분리 작업을 Phase 1에, `~/.gitconfig` 분해를 Phase 3에 추가했다.
-- gh CLI에 `movie42` 추가 완료. 활성 계정이 `movie42`로 바뀌면서 `AeiYo`의 git 프로토콜 설정이 ssh에서 https로 덮어써졌다 — 회사 저장소를 `gh repo clone`할 때 원격 주소가 달라진다.
+- gh CLI에 `movie42` 추가 완료. 활성 계정이 `movie42`로 바뀌면서 `<회사계정>`의 git 프로토콜 설정이 ssh에서 https로 덮어써졌다 — 회사 저장소를 `gh repo clone`할 때 원격 주소가 달라진다.
 - 결정: 계정 전환에 의존하지 않는다. 이 맥의 기본은 회사 계정이고, `~/dotfiles` 저장소만 개인 SSH 키로 push한다. `~/.ssh/config`에 이미 있던 `github-personal` 별칭이 `movie42`로 인증되는 걸 확인해서 새 키를 만들지 않았다.
-- 전역 `core.sshCommand`의 `-i ~/.ssh/AeiYo`가 SSH 별칭의 IdentityFile을 덮어쓰는 것을 확인했다(별칭으로 접속해도 AeiYo로 인증됨). 저장소 단위로 `core.sshCommand = ssh`를 줘서 푼다.
+- 전역 `core.sshCommand`의 `-i ~/.ssh/<회사키>`가 SSH 별칭의 IdentityFile을 덮어쓰는 것을 확인했다(별칭으로 접속해도 <회사계정>으로 인증됨). 저장소 단위로 `core.sshCommand = ssh`를 줘서 푼다.
 
 ### 2026-08-26 (구현)
 
@@ -172,5 +172,8 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - 결정: Brewfile에서 VS Code 확장 36줄을 뺐다. `code` CLI가 없는 맥이고 계획 범위(formula/cask) 밖이다. 대신 `brew "node"`를 넣었다 — Brewfile의 `npm` 항목 10개가 설치 시점에 node를 필요로 한다.
 - 결정: `~/.claude/settings.json`의 `statusLine.command`를 `$HOME/.bun/bin/ccstatusline`으로 바꿨다. 절대 홈 경로라 사용자명이 다른 맥에서 깨진다.
 - 결정: `claude/skills/browse`는 `node_modules`와 `dist`를 뺀 소스만 담았다(72MB → 672KB). 복원은 `setup.sh`로 한다. README에 적었다.
-- 블로커: `gdt`(`git-diff-tree`)와 `docs/` 공개 여부 — spec의 `## 결정이 필요한 부분` 참조.
-- 잔재 발견: `~/.local/bin`에 Amazon Q 흔적이 더 있다 — `qchat`, `qterm` 끊긴 심링크와 88MB짜리 `* (qterm)` 바이너리 4개(합계 352MB). 계획에 없어 손대지 않았다.
+- 결정: `gdt`와 `git-diff-tree`를 살리지 않고 alias까지 지운다. `~/projects/diff-tree`를 `pnpm link --global`로 건 껍데기였고 그 프로젝트가 이미 없어 지금도 동작하지 않는다.
+- 결정: `docs/`는 public 저장소에 함께 올린다. 대신 회사 GitHub 계정 이름과 SSH 키 파일명을 `<회사계정>` / `<회사키>` 자리표시자로 바꿨다.
+- 결정: gh 계정 전환 alias(`ghwork`/`ghme`)는 저장소가 아니라 `~/.zshrc.local`에 둔다. 계정 이름이 맥마다 다른 값이라 머신별 설정에 해당한다.
+- 결정: `JAVA_HOME`은 17로 확정. Expo SDK 53의 `expo-modules-core`가 `JavaVersion.VERSION_17`을 선언하고, `~/.gradle/jdks`에 Gradle이 자동으로 받아둔 Adoptium 17이 남아 있다. 지금까지 Gradle 데몬은 21로 돌고 컴파일만 17로 하고 있었다.
+- Amazon Q 잔재 전부 삭제: `~/.local/bin`의 `qchat`/`qterm` 심링크와 `* (qterm)` 바이너리 4개(335MB), `~/Library/Application Support/amazon-q`(10MB).

@@ -20,16 +20,12 @@ alias yvsd="yarn vd start:dev"
 alias ybsd="yarn bankpos start:dev"
 alias yksd="yarn ksnet start:dev"
 
-alias gdt="git-diff-tree compare"
 alias gco=git_checkout
 alias gp=git_push
 alias gbd=git_branch_delete
 alias gs=git_status
 alias gfl=git_flow
 alias prs="mypr"
-
-alias ghwork="gh auth switch --user AeiYo"
-alias ghme="gh auth switch --user movie42"
 
 alias pp="pulumi preview"
 alias pu="pulumi up"
