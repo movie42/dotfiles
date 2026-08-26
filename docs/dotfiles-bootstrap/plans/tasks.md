@@ -184,8 +184,8 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - 확인 불가: VS Code는 이 맥에 없어 옮길 테마가 없었다. Cursor 설정을 대신 옮겼다.
 - 미포함: Xcode(App Store 전용), KakaoTalk(cask 없음), Jetendard 폰트(71MB, `~/Library/Fonts`), macOS 시스템 설정. README에 표로 적었다.
 - `~/.config/karabiner`는 저장소에 남겼다. cask는 뺐지만 커스텀 키 매핑 자체는 사용자가 만든 데이터라 지우지 않았다.
-- 사용자 요청으로 Brewfile 축소: formula 8개(glib, git-delta, ollama, neovim, postgresql@14, qrencode, superfile, tmux)와 cask 6개(cmux, gittyup, orbstack, gcloud-cli, ngrok, meld), npm 전역 `@openai/codex` 제거. 브라우저는 aside와 google-chrome 둘로 한정.
-- git-delta를 빼면서 `git/gitconfig`의 `core.pager`, `interactive.diffFilter`, `[delta]` 8줄도 함께 지웠다. 없는 실행 파일을 pager로 지정하면 git이 실패한다.
+- 사용자 요청으로 Brewfile 축소: formula 7개(glib, ollama, neovim, postgresql@14, qrencode, superfile, tmux)와 cask 6개(cmux, gittyup, orbstack, gcloud-cli, ngrok, meld), npm 전역 `@openai/codex` 제거. 브라우저는 aside와 google-chrome 둘로 한정.
+- git-delta는 유지한다. 한 번 지웠다가 되돌렸다 — `git/gitconfig`이 `core.pager`, `interactive.diffFilter`, `[delta]` 세 곳에서 쓰고 있어서 빼면 git 페이저가 깨진다.
 - `cxd` alias는 codex와 함께 지웠다.
 - `zsh/zprofile`의 OrbStack 초기화 줄은 남겼다. cask만 뺀 것이고, 그 줄은 `2>/dev/null || :`로 감싸여 있어 OrbStack이 없는 맥에서 아무 일도 하지 않는다.
 - glib은 Brewfile에서 빠져도 cairo, ffmpeg, harfbuzz, openjdk@17, openjdk@21, pango, scrcpy, tesseract의 의존성이라 자동으로 설치된다.

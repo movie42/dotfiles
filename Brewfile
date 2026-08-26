@@ -20,6 +20,8 @@ brew "harfbuzz"
 brew "fzf"
 # GitHub command-line tool
 brew "gh"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
 # Render markdown on the CLI
 brew "glow"
 # Agent multiplexer that lives in your terminal
