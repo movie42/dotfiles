@@ -10,3 +10,7 @@ export AWS_PROFILE=
 
 # Pulumi — 스택 시크릿을 여는 패스프레이즈
 export PULUMI_CONFIG_PASSPHRASE=
+
+# Java 버전 바꾸기 — 기본은 openjdk@17 (zsh/path.zsh)
+# export JAVA_HOME="$HOMEBREW_PREFIX/opt/openjdk@21"
+# path=("$JAVA_HOME/bin" $path)

@@ -61,7 +61,7 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - [x] `~/dotfiles`에만 개인 신원 적용 (`~/dotfiles/.git/config`)
   - 전역 설정(회사 계정)은 건드리지 않는다. `git config user.name movie42`, `git config user.email 44064122+movie42@users.noreply.github.com`
   - 이 이메일은 GitHub이 계정마다 주는 익명 주소다. public 저장소 커밋 로그에 실제 개인 이메일이 노출되지 않는다.
-- [ ] 설정이 실제로 먹었는지 push 전에 확인
+- [x] 설정이 실제로 먹었는지 push 전에 확인
   - `git log --format='%an <%ae>'` — 개인 계정으로 나와야 한다
   - `GIT_SSH_COMMAND="ssh" ssh -T github-personal` — `Hi movie42!`가 나와야 한다
   - 여기서 틀린 채로 push하면 히스토리 재작성 말고는 방법이 없다
@@ -99,38 +99,38 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 
 ## Phase 3: 나머지 설정 수집
 
-- [ ] `~/.gitconfig` 분해 — `.zshrc`와 같은 패턴으로 공유분과 개인분을 가른다 (`~/dotfiles/git/gitconfig`)
+- [x] `~/.gitconfig` 분해 — `.zshrc`와 같은 패턴으로 공유분과 개인분을 가른다 (`~/dotfiles/git/gitconfig`)
   - 커밋: alias(`s` `ss` `l`), delta 설정, `merge.conflictstyle`, `diff.colorMoved`, `init.defaultBranch`, `column.ui`
   - 커밋 안 함 → `~/.gitconfig.local`: `user.name` / `user.email`(회사 계정), `core.sshCommand`의 SSH 키 경로, `http.sslCAInfo`(사내 인증서)
   - `gitconfig` 맨 끝에 `[include] path = ~/.gitconfig.local` 추가. git은 뒤에 include된 값이 이기므로 개인 설정이 공유 설정을 덮어쓴다.
   - `core.excludesfile`이 `/Users/hyunsuko/...` 절대 경로다. 새 맥에서 사용자명이 다르면 깨지므로 `~/.gitignore_global`로 바꾼다.
   - Sourcetree mergetool 설정 삭제 — 경로가 macOS AppTranslocation 임시 디렉토리라 이미 만료됐다
   - `http.sslCAInfo`는 사내 git 서버용 인증서다. 새 맥에 그 파일이 없는 상태로 이 설정이 있으면 git이 HTTPS 통신에서 실패한다. `.local`로 빼는 이유가 이것이다.
-- [ ] `~/.gitignore_global` 이동 (`~/dotfiles/git/gitignore_global`)
-- [ ] `gitconfig.local.example` 작성 — 신원과 사내 설정 자리만 비워둔 템플릿 (`~/dotfiles/git/gitconfig.local.example`)
-- [ ] `~/.config` 아래 도구 설정 복사 (`~/dotfiles/config/`)
+- [x] `~/.gitignore_global` 이동 (`~/dotfiles/git/gitignore_global`)
+- [x] `gitconfig.local.example` 작성 — 신원과 사내 설정 자리만 비워둔 템플릿 (`~/dotfiles/git/gitconfig.local.example`)
+- [x] `~/.config` 아래 도구 설정 복사 (`~/dotfiles/config/`)
   - 대상: `ghostty`, `yazi`, `ccstatusline`, `glow`, `git`, `karabiner`, `zed`, `gh-attach`
   - `nvim`은 제외 (개요 참조)
-- [ ] oh-my-zsh 커스텀 플러그인 처리 (`~/dotfiles/install.sh`)
+- [x] oh-my-zsh 커스텀 플러그인 처리 (`~/dotfiles/install.sh`)
   - `~/.oh-my-zsh/custom/plugins`에 `zsh-autosuggestions`, `zsh-syntax-highlighting`이 있는데 brew로도 같은 게 깔려 있다. brew 쪽만 남기고 omz 플러그인 목록에서 뺀다.
 - [ ] 커스텀 실행 스크립트 이동 (`~/dotfiles/bin/`)
   - `~/.local/bin/git-status-preview` — `git_status` 함수의 fzf preview가 이걸 호출한다. 없으면 preview 창이 깨진다.
   - `~/Library/pnpm/git-diff-tree` — `gdt` alias가 쓴다. pnpm 전역 패키지 목록에는 없는 단독 셸 스크립트라 직접 챙겨야 한다.
-- [ ] AI 에이전트 규칙 문서 이동 (`~/dotfiles/claude/`)
+- [x] AI 에이전트 규칙 문서 이동 (`~/dotfiles/claude/`)
   - `~/AGENTS.md`, `~/.claude/CLAUDE.md`, `~/.claude/rules/`, `~/.claude/settings.json`, `~/.claude/skills/`
   - `~/.claude.json`은 세션 기록과 자격증명이 들어 있어 제외
 
 ## Phase 4: Brewfile과 install.sh
 
-- [ ] Brewfile 생성 (`~/dotfiles/Brewfile`)
+- [x] Brewfile 생성 (`~/dotfiles/Brewfile`)
   - `brew bundle dump --describe --file=~/dotfiles/Brewfile`
   - formula 37개, cask 11개. `--describe`를 붙이면 각 패키지 설명이 주석으로 들어가 나중에 "이게 뭐였지"를 막는다.
-- [ ] `install.sh` 작성 (`~/dotfiles/install.sh`)
+- [x] `install.sh` 작성 (`~/dotfiles/install.sh`)
   - 순서: Homebrew 설치 → 저장소 clone → `brew bundle` → oh-my-zsh 설치 → 심링크 → `nvm install --lts` → `~/.zshrc.local` 생성 안내
   - Homebrew가 맨 앞인 이유: 깨끗한 맥에는 git이 없다. Homebrew 설치 과정이 Xcode Command Line Tools를 깔고 거기에 git이 딸려 온다. 그래야 다음 줄의 `git clone`이 동작한다.
   - 심링크는 `ln -sfn`. 이미 파일이 있으면 `.bak`으로 밀어두고 건다 — 기존 설정을 말없이 지우지 않기 위해서다.
   - 두 번 실행해도 결과가 같아야 한다. 각 단계 앞에 존재 여부 검사를 둔다.
-- [ ] `README.md` 작성 — 설치 한 줄, 수동으로 해야 할 일 목록 (`~/dotfiles/README.md`)
+- [x] `README.md` 작성 — 설치 한 줄, 수동으로 해야 할 일 목록 (`~/dotfiles/README.md`)
   - 자동화 못 하는 것: `~/.zshrc.local`과 `~/.gitconfig.local` 값 채우기, `gh auth login`, `aws configure`, SSH 키 생성, Xcode/Android Studio 설치, macOS 시스템 설정
   - README는 저장소 루트라 한국어로 쓴다
 
@@ -158,3 +158,19 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - gh CLI에 `movie42` 추가 완료. 활성 계정이 `movie42`로 바뀌면서 `AeiYo`의 git 프로토콜 설정이 ssh에서 https로 덮어써졌다 — 회사 저장소를 `gh repo clone`할 때 원격 주소가 달라진다.
 - 결정: 계정 전환에 의존하지 않는다. 이 맥의 기본은 회사 계정이고, `~/dotfiles` 저장소만 개인 SSH 키로 push한다. `~/.ssh/config`에 이미 있던 `github-personal` 별칭이 `movie42`로 인증되는 걸 확인해서 새 키를 만들지 않았다.
 - 전역 `core.sshCommand`의 `-i ~/.ssh/AeiYo`가 SSH 별칭의 IdentityFile을 덮어쓰는 것을 확인했다(별칭으로 접속해도 AeiYo로 인증됨). 저장소 단위로 `core.sshCommand = ssh`를 줘서 푼다.
+
+### 2026-08-26 (구현)
+
+- Phase 1~4 완료. Phase 5(새 사용자 계정 검증)와 첫 push는 사용자 확인 대기.
+- 검증: 새 셸과 현재 셸의 `alias` 출력 비교 — gh 전환 alias 2개만 추가되고 나머지 동일. 함수 16개 `functions` 출력 대조 — `pfx-list`의 후행 공백만 다르고 전부 일치. 셸 시작 시간 중앙값 0.95초 → 0.79초.
+- 검증: install.sh의 `link()`를 가짜 HOME으로 4가지 상황(실제 파일 존재 / 재실행 / 다른 곳 가리키는 심링크 / 원본 없음) 테스트 — 백업·멱등성·실패 수집 모두 의도대로.
+- 검증: 첫 커밋 전 `git diff --cached`에 gh·sk·AIza·AKIA·JWT·PEM 패턴 없음, 회사 이메일 없음. `git log`가 `movie42 <44064122+movie42@...>`, `ssh -T github-personal`이 `Hi movie42!`.
+- 결정: `JAVA_HOME`은 `openjdk@17`. RN/Expo Android 빌드의 표준 버전이라 골랐다. PATH도 17이 이겨 `java -version`이 21에서 17로 바뀐다. 21로 되돌리려면 `~/.zshrc.local`에 두 줄을 넣는다 (`zshrc.local.example` 참조).
+- 결정: PATH 관리에 zsh의 `typeset -U path`를 쓴다. 중복 제거가 셸 기능으로 처리돼 bun·Windsurf·maestro 중복 블록을 따로 지울 필요가 없다.
+- 결정: `.zshrc:547`의 PATH 덮어쓰기를 없앨 때 `/opt/homebrew/bin`을 명시적으로 추가했다. `/etc/paths`에 homebrew 경로가 없어서, 그 줄이 이 맥에서 유일하게 brew를 PATH에 올리고 있었다.
+- 결정: `HOMEBREW_PREFIX`를 install.sh가 계산해 남기는 대신 `path.zsh`가 직접 파일 존재로 판별한다. 생성 파일에 의존하면 clone만 한 맥에서 셸이 깨진다. spec 엣지 케이스에 반영.
+- 결정: Brewfile에서 VS Code 확장 36줄을 뺐다. `code` CLI가 없는 맥이고 계획 범위(formula/cask) 밖이다. 대신 `brew "node"`를 넣었다 — Brewfile의 `npm` 항목 10개가 설치 시점에 node를 필요로 한다.
+- 결정: `~/.claude/settings.json`의 `statusLine.command`를 `$HOME/.bun/bin/ccstatusline`으로 바꿨다. 절대 홈 경로라 사용자명이 다른 맥에서 깨진다.
+- 결정: `claude/skills/browse`는 `node_modules`와 `dist`를 뺀 소스만 담았다(72MB → 672KB). 복원은 `setup.sh`로 한다. README에 적었다.
+- 블로커: `gdt`(`git-diff-tree`)와 `docs/` 공개 여부 — spec의 `## 결정이 필요한 부분` 참조.
+- 잔재 발견: `~/.local/bin`에 Amazon Q 흔적이 더 있다 — `qchat`, `qterm` 끊긴 심링크와 88MB짜리 `* (qterm)` 바이너리 4개(합계 352MB). 계획에 없어 손대지 않았다.
