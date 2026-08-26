@@ -62,7 +62,7 @@ check_cmd bun
 sect "GUI 앱"
 for a in "Aside" "Google Chrome" "Visual Studio Code" "Orca" "Warp" "Android Studio" \
          "DBeaver" "Fork" "Figma" "Claude" "Slack" "Notion" "Rectangle" "Pritunl" \
-         "Ghostty" "Flipper" "Reactotron"; do
+         "Ghostty" "Reactotron"; do
   check_app "$a"
 done
 
@@ -78,6 +78,7 @@ done
 print "JAVA_HOME=$JAVA_HOME"
 print "NODE=$(command -v node)"
 print "PAGER=$(git config --get core.pager)"
+print "JAVAV=$(java -version 2>&1 | head -1)"
 ' 2>/dev/null)
 
 MISSING_FN=$(printf '%s\n' "$PROBE" | grep '^FN:' | cut -d: -f2 | tr '\n' ' ')
@@ -96,7 +97,7 @@ case "$JH" in
   *)            warn "JAVA_HOME = $JH (계획은 openjdk@17)" ;;
 esac
 
-JV=$(java -version 2>&1 | head -1)
+JV=$(printf '%s\n' "$PROBE" | grep '^JAVAV=' | cut -d= -f2-)
 case "$JV" in
   *'"17'*) ok "java = 17" ;;
   *)       bad "java 가 17이 아님: $JV" ;;

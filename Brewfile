@@ -68,8 +68,6 @@ brew "zsh-syntax-highlighting"
 brew "atlassian/acli/acli"
 # Android SDK component
 cask "android-platform-tools"
-# Desktop debugging platform for mobile developers
-cask "flipper"
 cask "font-jetbrains-mono"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"

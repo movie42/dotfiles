@@ -108,7 +108,7 @@ else
 fi
 
 if command -v npm >/dev/null 2>&1; then
-  for pkg in yarn corepack eas-cli @coastal-programs/notion-cli @playwright/cli; do
+  for pkg in yarn eas-cli @coastal-programs/notion-cli @playwright/cli; do
     if npm ls -g --depth=0 "$pkg" >/dev/null 2>&1; then
       skip "$pkg"
     else

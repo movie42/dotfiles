@@ -1,4 +1,5 @@
 export NVM_DIR="$HOME/.nvm"
+path=(${path:#$NVM_DIR/versions/node/*})
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"

@@ -141,11 +141,12 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 판정 기준은 `verify.sh`의 종료 코드다. 눈으로 훑어서 "된 것 같다"고 넘기지 않는다.
 
 - [x] `verify.sh` 작성 — 심링크·CLI·GUI 앱·셸 함수·버전·git 신원·실행 확인을 검사하고 실패 시 1로 종료
+- [x] 이 계정에서 install.sh 실행 후 verify.sh로 검증 (새 계정 테스트보다 먼저)
 - [ ] macOS에 새 사용자 계정을 만들어 그 계정으로 로그인 후 install.sh 실행
   - Linux 컨테이너로는 검증할 수 없다. Homebrew 경로(`/opt/homebrew`), cask, macOS 전용 도구가 전부 다르게 동작한다.
-- [ ] 새 터미널을 열고 `~/dotfiles/verify.sh` 실행 — 종료 코드 0이 나올 때까지
-- [ ] 실패 항목마다 원인이 스크립트인지 계획인지 가르고 고친 뒤 다시 실행
-- [ ] 검증 끝나면 현재 맥의 실제 dotfile들을 저장소 심링크로 교체 (`install.sh`를 이 계정에서 다시 실행하면 된다 — 기존 파일은 `.bak`으로 밀린다)
+- [x] 새 터미널을 열고 `~/dotfiles/verify.sh` 실행 — 종료 코드 0이 나올 때까지
+- [x] 실패 항목마다 원인이 스크립트인지 계획인지 가르고 고친 뒤 다시 실행
+- [x] 검증 끝나면 현재 맥의 실제 dotfile들을 저장소 심링크로 교체 (`install.sh`를 이 계정에서 다시 실행하면 된다 — 기존 파일은 `.bak`으로 밀린다)
 
 ## 진행 기록
 
@@ -197,3 +198,10 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - verify.sh를 지금 맥에서 돌려 동작을 확인했다: 통과 47 · 실패 24 · 경고 1. 실패 24건은 전부 예상된 것 — 심링크 미교체 20건, VS Code 미설치, Flipper 앱 수동 삭제, JAVA_HOME 미설정 2건(옛 .zshrc가 아직 활성).
 - `~/.gitconfig.local` 권한이 644였다. 600으로 고쳤다. install.sh는 생성 시 600을 준다.
 - Flipper는 brew Caskroom에 0.273.0이 있는데 `/Applications/Flipper.app`이 없다. 앱만 수동으로 지운 상태다.
+- 이 계정에서 `HOMEBREW_CASK_OPTS="--adopt" install.sh` 실행. 심링크 20개 교체 완료, `.bak` 백업이 원본과 바이트 단위로 일치함을 확인.
+- 검증: `verify.sh` 통과 71 · 실패 0 · 경고 0, 종료 코드 0.
+- 버그: nvm이 활성화되지 않아 `node`가 brew 것으로 잡혔다. 원인은 PATH에 이미 nvm 경로가 있으면 nvm이 그 자리에서 교체만 하고 앞으로 당기지 않는 것. 옛 `.zshrc`는 PATH를 통째로 덮어써서 그 경로를 지웠기 때문에 우연히 동작하고 있었다. `tools.zsh`에서 nvm 로드 직전에 `path=(${path:#$NVM_DIR/versions/node/*})`로 상속된 경로를 걷어내 해결. 깨끗한 로그인 셸에서는 원래 정상이었고 중첩 셸에서만 어긋났다.
+- 버그: `verify.sh`가 `java -version`을 자기 bash에서 불러 옛 PATH의 21을 봤다. zsh 프로브 안으로 옮겨 해결.
+- `brew bundle`이 cask 9개(android-studio, aside, figma, fork, google-chrome, orca, pritunl, rectangle, slack)에서 실패. 손으로 깐 앱이 cask 버전과 달라 `--adopt`가 거부한 것으로, 앱이 없는 새 맥에서는 이 충돌이 생기지 않는다.
+- `corepack`을 npm 전역 목록에서 뺐다. Node에 기본 포함돼 있어 덮어쓰려다 실패한다.
+- `flipper`를 Brewfile에서 뺐다. brew Caskroom엔 있는데 앱을 직접 지운 상태였다.
