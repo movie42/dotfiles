@@ -138,10 +138,14 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 
 스크립트를 읽어보는 것만으로는 "깨끗한 맥에서 되는지"를 알 수 없다. 지금 맥에는 이미 모든 게 깔려 있어서 install.sh가 전부 건너뛰고 성공한 것처럼 보이기 때문이다.
 
+판정 기준은 `verify.sh`의 종료 코드다. 눈으로 훑어서 "된 것 같다"고 넘기지 않는다.
+
+- [x] `verify.sh` 작성 — 심링크·CLI·GUI 앱·셸 함수·버전·git 신원·실행 확인을 검사하고 실패 시 1로 종료
 - [ ] macOS에 새 사용자 계정을 만들어 그 계정으로 로그인 후 install.sh 실행
   - Linux 컨테이너로는 검증할 수 없다. Homebrew 경로(`/opt/homebrew`), cask, macOS 전용 도구가 전부 다르게 동작한다.
-- [ ] 실패 지점 기록하고 스크립트 수정, 다시 실행
-- [ ] 검증 끝나면 현재 맥의 실제 dotfile들을 저장소 심링크로 교체
+- [ ] 새 터미널을 열고 `~/dotfiles/verify.sh` 실행 — 종료 코드 0이 나올 때까지
+- [ ] 실패 항목마다 원인이 스크립트인지 계획인지 가르고 고친 뒤 다시 실행
+- [ ] 검증 끝나면 현재 맥의 실제 dotfile들을 저장소 심링크로 교체 (`install.sh`를 이 계정에서 다시 실행하면 된다 — 기존 파일은 `.bak`으로 밀린다)
 
 ## 진행 기록
 
@@ -189,3 +193,7 @@ Neovim 설정은 이 계획에 포함하지 않는다. `~/.config/nvim`은 2023�
 - `cxd` alias는 codex와 함께 지웠다.
 - `zsh/zprofile`의 OrbStack 초기화 줄은 남겼다. cask만 뺀 것이고, 그 줄은 `2>/dev/null || :`로 감싸여 있어 OrbStack이 없는 맥에서 아무 일도 하지 않는다.
 - glib은 Brewfile에서 빠져도 cairo, ffmpeg, harfbuzz, openjdk@17, openjdk@21, pango, scrcpy, tesseract의 의존성이라 자동으로 설치된다.
+- Phase 5의 판정 기준이 계획에 없어서 `verify.sh`를 추가했다. install.sh가 끝나는 것과 설정이 실제로 먹은 것은 다르다 — 심링크가 걸려도 새 셸을 열기 전에는 함수도 PATH도 예전 것이다.
+- verify.sh를 지금 맥에서 돌려 동작을 확인했다: 통과 47 · 실패 24 · 경고 1. 실패 24건은 전부 예상된 것 — 심링크 미교체 20건, VS Code 미설치, Flipper 앱 수동 삭제, JAVA_HOME 미설정 2건(옛 .zshrc가 아직 활성).
+- `~/.gitconfig.local` 권한이 644였다. 600으로 고쳤다. install.sh는 생성 시 600을 준다.
+- Flipper는 brew Caskroom에 0.273.0이 있는데 `/Applications/Flipper.app`이 없다. 앱만 수동으로 지운 상태다.
