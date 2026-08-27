@@ -37,7 +37,7 @@ else
 fi
 
 log "Homebrew 패키지"
-brew bundle --file="$DOTFILES/Brewfile" || fail "brew bundle에서 일부 패키지가 실패했습니다"
+brew bundle --file="$DOTFILES/Brewfile" --verbose || fail "brew bundle에서 일부 패키지가 실패했습니다"
 
 log "oh-my-zsh"
 if [ -d "$HOME/.oh-my-zsh" ]; then

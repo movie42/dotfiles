@@ -1,6 +1,5 @@
 tap "atlassian/acli", trusted: true
 tap "atlassian/tap", trusted: true
-tap "homebrew/services"
 tap "jesseduffield/lazygit"
 # Browser automation CLI for AI agents
 brew "agent-browser"

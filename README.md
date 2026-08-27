@@ -3,11 +3,13 @@
 macOS 개발 환경 설정. 새 맥에서 명령 한 줄로 복원한다.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/movie42/dotfiles/main/install.sh | bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/movie42/dotfiles/main/install.sh)"
 ```
 
 Homebrew → 저장소 clone → `brew bundle` → oh-my-zsh → 심링크 → node(LTS) → npm 전역 패키지 → bun 순으로 진행한다.
 깨끗한 맥에는 git이 없기 때문에 Homebrew가 맨 앞이다 — Homebrew 설치 과정이 Xcode Command Line Tools를 깔고 거기에 git이 딸려 온다.
+
+`| bash`로 파이프하지 않는다. 파이프하면 스크립트의 stdin이 curl 출력으로 덮여, Homebrew와 cask 설치가 요구하는 sudo 비밀번호 프롬프트를 받을 수 없다. `bash -c "$(...)"`는 스크립트를 인자로 넘겨 stdin을 터미널로 남긴다.
 
 여러 번 실행해도 결과가 같다. 각 단계가 존재 여부를 먼저 검사하고, 실패한 항목은 중단하지 않고 맨 마지막에 모아 출력한다.
 
