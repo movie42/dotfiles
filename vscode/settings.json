@@ -31,7 +31,7 @@
   "editor.fontFamily": "JetBrains Mono",
   "workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-light",
   "workbench.sideBar.location": "right",
-  "workbench.colorTheme": "Default Light+",
+  "workbench.colorTheme": "Light+",
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
