@@ -1,4 +1,4 @@
-alias zshconfig="cursor ~/.zshrc"
+alias zshconfig="code ~/.zshrc"
 alias zshsource="source ~/.zshrc"
 
 alias ls="eza"
@@ -38,4 +38,4 @@ alias infrals="pfx-list"
 
 alias c="claude"
 alias cdsp="claude --dangerously-skip-permissions"
-alias cr="cursor"
+alias cr="code"
